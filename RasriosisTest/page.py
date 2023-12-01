@@ -24,7 +24,10 @@ class LoginPage(BasePage):
 class MainPage(BasePage):
   
   def click_grades_menu(self):
-    self.driver.find_element(*MainPageLocator.GRADE_MENU).click()
+    wait = WebDriverWait(self.driver, 5)
+    grade_menu = self.driver.find_element(*MainPageLocator.GRADE_MENU)
+    wait.until(lambda _: grade_menu.is_displayed())
+    grade_menu.click()
     
     WebDriverWait(self.driver, 2).until(
       lambda driver: driver.find_element(*MainPageLocator.GRADE_MENU_UL).is_displayed()
@@ -105,36 +108,18 @@ class CreateAssignmentPage(BasePage):
     self.driver.execute_script("arguments[0].scrollIntoView({block: 'center', behavior: 'smooth'});", element)
     time.sleep(3)
   
-  def due_date_less_assigned_date_error(self):
-    error_section = self.driver.find_element(*CreateAssignmentPageLocator.ERROR_SECTION)
-    wait = WebDriverWait(self.driver, 10)
-    wait.until(lambda d: error_section.is_displayed())
-    self.scroll_to_the_end(error_section)
-    return "Due date is before assigned date!" in self.driver.page_source
+  def is_match_expected_result(self, expected_result):
+    if(expected_result != ""):
+      result_array = expected_result.split(';')
+      error_section = self.driver.find_element(*CreateAssignmentPageLocator.ERROR_SECTION)
+      wait = WebDriverWait(self.driver, 10)
+      wait.until(lambda d: error_section.is_displayed())
+      self.scroll_to_the_end(error_section)
+      bool_array = [item in self.driver.page_source for item in result_array]
+      return all(bool_array)
+    else:
+      delete_button = self.driver.find_element(*CreateAssignmentPageLocator.DELETE_BUTTON)
+      wait = WebDriverWait(self.driver, 10)
+      wait.until(lambda d: delete_button.is_displayed())
+      return "Error" not in self.driver.page_source
   
-  def create_new_assignment_succesfully(self):
-    delete_button = self.driver.find_element(*CreateAssignmentPageLocator.DELETE_BUTTON)
-    wait = WebDriverWait(self.driver, 10)
-    wait.until(lambda d: delete_button.is_displayed())
-    return "Error" not in self.driver.page_source
-
-  def due_date_is_after_end_of_quarter(self):
-    error_section = self.driver.find_element(*CreateAssignmentPageLocator.ERROR_SECTION)
-    wait = WebDriverWait(self.driver, 10)
-    wait.until(lambda d: error_section.is_displayed())
-    self.scroll_to_the_end(error_section)
-    return "Due date is after end of quarter!" in self.driver.page_source
-  
-  def assigned_date_is_after_end_of_quarter(self):
-    error_section = self.driver.find_element(*CreateAssignmentPageLocator.ERROR_SECTION)
-    wait = WebDriverWait(self.driver, 10)
-    wait.until(lambda d: error_section.is_displayed())
-    self.scroll_to_the_end(error_section)
-    return ("Assigned date is after end of quarter!" in self.driver.page_source) and ("Due date is before assigned date!" in self.driver.page_source)
-    
-  def both_date_are_after_end_of_quarter(self):
-    error_section = self.driver.find_element(*CreateAssignmentPageLocator.ERROR_SECTION)
-    wait = WebDriverWait(self.driver, 10)
-    wait.until(lambda d: error_section.is_displayed())
-    self.scroll_to_the_end(error_section)
-    return ("Assigned date is after end of quarter!" in self.driver.page_source) and ("Due date is after end of quarter!" in self.driver.page_source)

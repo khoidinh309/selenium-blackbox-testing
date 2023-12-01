@@ -6,10 +6,11 @@ class LoginPageLocator:
   PASSWORD_FIELD = "PASSWORD"
 
 class MainPageLocator:
-  GRADE_MENU = (By.CLASS_NAME, "grades")
+  GRADE_MENU = (By.XPATH, "//li[@class='menu-module grades']")
   GRADE_MENU_ANCHOR = (By.ID, "selectedModuleLink")
   GRADE_MENU_UL = (By.ID, "menu_Grades")
   ASSIGNMENT_ITEM_IN_MENU = (By.LINK_TEXT, "Assignments")
+  LOGOUT_BUTTON = (By.PARTIAL_LINK_TEXT, "LOGOUT")
 
 class AssignmentPageLocator:
   ASSIGNMENT_OPTION = (By.LINK_TEXT, "Homework")
@@ -31,5 +32,6 @@ class CreateAssignmentPageLocator:
   ERROR_SECTION = (By.CLASS_NAME, "error")
   DELETE_CONFIRMATION_MODAL = (By.CLASS_NAME, "postbox-wrapper")
   CONFIRM_DELETE_BUTTON = (By.NAME, "delete_ok")
+  
   
   
