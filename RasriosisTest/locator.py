@@ -29,5 +29,7 @@ class CreateAssignmentPageLocator:
   SAVE_BUTTON = (By.XPATH, '//input[@type="submit" and @value="Save" and @class="button-primary"]')
   DELETE_BUTTON = (By.XPATH, '//input[@type="button" and @value = "Delete"]')
   ERROR_SECTION = (By.CLASS_NAME, "error")
+  DELETE_CONFIRMATION_MODAL = (By.CLASS_NAME, "postbox-wrapper")
+  CONFIRM_DELETE_BUTTON = (By.NAME, "delete_ok")
   
   

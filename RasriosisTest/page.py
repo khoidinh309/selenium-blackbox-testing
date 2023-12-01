@@ -44,7 +44,6 @@ class AssignmentPage(BasePage):
       lambda driver: driver.find_element(*AssignmentPageLocator.ASSIGNMENT_LIST).is_displayed()
     )
     
-    
     assignment_list = self.driver.find_element(*AssignmentPageLocator.ASSIGNMENT_LIST)
     assignment_list.find_element(*AssignmentPageLocator.CREATE_ASSIGNMENT_BUTTON).click()
     
@@ -102,10 +101,15 @@ class CreateAssignmentPage(BasePage):
     )
     submit_button.click()
   
+  def scroll_to_the_end(self, element):
+    self.driver.execute_script("arguments[0].scrollIntoView({block: 'center', behavior: 'smooth'});", element)
+    time.sleep(3)
+  
   def due_date_less_assigned_date_error(self):
     error_section = self.driver.find_element(*CreateAssignmentPageLocator.ERROR_SECTION)
     wait = WebDriverWait(self.driver, 10)
     wait.until(lambda d: error_section.is_displayed())
+    self.scroll_to_the_end(error_section)
     return "Due date is before assigned date!" in self.driver.page_source
   
   def create_new_assignment_succesfully(self):
@@ -118,5 +122,19 @@ class CreateAssignmentPage(BasePage):
     error_section = self.driver.find_element(*CreateAssignmentPageLocator.ERROR_SECTION)
     wait = WebDriverWait(self.driver, 10)
     wait.until(lambda d: error_section.is_displayed())
+    self.scroll_to_the_end(error_section)
     return "Due date is after end of quarter!" in self.driver.page_source
+  
+  def assigned_date_is_after_end_of_quarter(self):
+    error_section = self.driver.find_element(*CreateAssignmentPageLocator.ERROR_SECTION)
+    wait = WebDriverWait(self.driver, 10)
+    wait.until(lambda d: error_section.is_displayed())
+    self.scroll_to_the_end(error_section)
+    return ("Assigned date is after end of quarter!" in self.driver.page_source) and ("Due date is before assigned date!" in self.driver.page_source)
     
+  def both_date_are_after_end_of_quarter(self):
+    error_section = self.driver.find_element(*CreateAssignmentPageLocator.ERROR_SECTION)
+    wait = WebDriverWait(self.driver, 10)
+    wait.until(lambda d: error_section.is_displayed())
+    self.scroll_to_the_end(error_section)
+    return ("Assigned date is after end of quarter!" in self.driver.page_source) and ("Due date is after end of quarter!" in self.driver.page_source)
