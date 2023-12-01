@@ -46,8 +46,7 @@ class AssignmentPage(BasePage):
     
     
     assignment_list = self.driver.find_element(*AssignmentPageLocator.ASSIGNMENT_LIST)
-    last_td = assignment_list.find_elements(*AssignmentPageLocator.CREATE_ASSIGNMENT_BUTTON)[-1]
-    last_td.find_element(By.CSS_SELECTOR, 'a').click()
+    assignment_list.find_element(*AssignmentPageLocator.CREATE_ASSIGNMENT_BUTTON).click()
     
     time.sleep(2)
     
@@ -110,6 +109,14 @@ class CreateAssignmentPage(BasePage):
     return "Due date is before assigned date!" in self.driver.page_source
   
   def create_new_assignment_succesfully(self):
+    delete_button = self.driver.find_element(*CreateAssignmentPageLocator.DELETE_BUTTON)
+    wait = WebDriverWait(self.driver, 10)
+    wait.until(lambda d: delete_button.is_displayed())
     return "Error" not in self.driver.page_source
 
+  def due_date_is_after_end_of_quarter(self):
+    error_section = self.driver.find_element(*CreateAssignmentPageLocator.ERROR_SECTION)
+    wait = WebDriverWait(self.driver, 10)
+    wait.until(lambda d: error_section.is_displayed())
+    return "Due date is after end of quarter!" in self.driver.page_source
     

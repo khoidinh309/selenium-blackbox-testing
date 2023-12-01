@@ -25,7 +25,8 @@ class RosariosisTest(unittest.TestCase):
     assignment_page = AssignmentPage(self.driver)
     assignment_page.click_create_new_assignment()
     assert assignment_page.assignment_form_is_shown()
-    
+  
+  """ Start testing section of the creating new assignment """
   def test_new_assignment_due_date_less_assigned_date(self):
     self.login_and_access_assignment_page_action()
     
@@ -45,6 +46,26 @@ class RosariosisTest(unittest.TestCase):
     create_assignment_page.click_save_button()
     
     assert create_assignment_page.create_new_assignment_succesfully()
+    
+  def test_new_assignment_create_sucessfully(self):
+    self.login_and_access_assignment_page_action()
+    
+    """ This is creating new assignemt action set"""
+    create_assignment_page = CreateAssignmentPage(self.driver)
+    create_assignment_page.input_create_form(DateObject(month="11", day="20", year="2023"), DateObject(month="11",day="24", year="2023"))
+    create_assignment_page.click_save_button()
+    
+    assert create_assignment_page.create_new_assignment_succesfully()
+    
+  def test_new_assignment_due_date_is_after_end_of_quarter(self):
+    self.login_and_access_assignment_page_action()
+    
+    """ This is creating new assignemt action set"""
+    create_assignment_page = CreateAssignmentPage(self.driver)
+    create_assignment_page.input_create_form(DateObject(month="11", day="20", year="2023"), DateObject(month="12",day="19", year="2024"))
+    create_assignment_page.click_save_button()
+    
+    assert create_assignment_page.due_date_is_after_end_of_quarter()
     
   def tearDown(self) -> None:
     self.driver.close()

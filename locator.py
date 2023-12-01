@@ -14,7 +14,7 @@ class MainPageLocator:
 class AssignmentPageLocator:
   ASSIGNMENT_OPTION = (By.LINK_TEXT, "Homework")
   ASSIGNMENT_LIST = (By.XPATH, "//div[@class='list-outer assignments']")
-  CREATE_ASSIGNMENT_BUTTON = (By.CSS_SELECTOR, "td")
+  CREATE_ASSIGNMENT_BUTTON = (By.CSS_SELECTOR, 'img')
   
 class CreateAssignmentPageLocator:
   TITLE_FIELD = "tables[new][TITLE]"
@@ -27,5 +27,7 @@ class CreateAssignmentPageLocator:
   DUE_DATE_DAY_LIST = (By.NAME, "day_tables[new][DUE_DATE]")
   DUE_DATE_YEAR_LIST = (By.NAME, "year_tables[new][DUE_DATE]")
   SAVE_BUTTON = (By.XPATH, '//input[@type="submit" and @value="Save" and @class="button-primary"]')
+  DELETE_BUTTON = (By.XPATH, '//input[@type="button" and @value = "Delete"]')
   ERROR_SECTION = (By.CLASS_NAME, "error")
+  
   
