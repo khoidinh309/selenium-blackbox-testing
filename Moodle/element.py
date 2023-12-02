@@ -3,7 +3,6 @@ from selenium.webdriver.common.by import By
 from locator import  *
 
 class BaseElement(object):
-  
   def __set__(self, obj, value):
     driver = obj.driver
     WebDriverWait(driver, 100).until(
@@ -19,3 +18,9 @@ class BaseElement(object):
     )
     element = driver.find_element(By.NAME, self.locator).clear()
     return element.get_attribute("value")
+  
+class UserNameElement(BaseElement):
+  locator = LogInPageLocator.USER_NAME_FIELD
+  
+class PasswordElement(BaseElement):
+  locator = LogInPageLocator.PASSWORD_FIELD

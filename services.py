@@ -5,7 +5,6 @@ class TestService:
   def read_csv_data(file_path, column_list):
     with open(file_path, 'r') as file:
       reader = csv.DictReader(file)
-      
       result = []
       
       for row in reader:
