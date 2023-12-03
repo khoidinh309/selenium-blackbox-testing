@@ -1,7 +1,7 @@
-Id,Test_Result
-1,Passed
-2,Passed
-3,Passed
-4,Passed
-5,Passed
-6,Passed
+Id,UI_Passed,RT_Passed
+1,Passed,Passed
+2,Passed,Failed
+3,Passed,Passed
+4,Passed,Failed
+5,Passed,Passed
+6,Passed,Passed

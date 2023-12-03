@@ -89,6 +89,9 @@ class SettingAssignmentPage(BasePage):
     
   def click_save_and_display_button(self):
     self.click_button(self.driver, SettingAssignmentPageLocator.SAVE_AND_DISPLAY_BUTTON)
+    navigationStart = self.driver.execute_script("return window.performance.timing.navigationStart")
+    domComplete = self.driver.execute_script("return window.performance.timing.domComplete")
+    return domComplete - navigationStart
     
   def click_expand_grade_section_button(self):
     self.click_button(self.driver, SettingAssignmentPageLocator.EXPAND_GRADE_SECTION_BUTTON)
@@ -102,9 +105,10 @@ class SettingAssignmentPage(BasePage):
       bool_array = [item in self.driver.page_source for item in result_array]
       return all(bool_array)
     else:
-      grade_summary_page = self.find_element(self.driver, SettingAssignmentPageLocator.GRADE_SUMMARY_SECTION)
-      self.wait.until(lambda d: grade_summary_page.is_displayed())
-      return "Grading summary" in self.driver.page_source
+      if "Recalculating grades" not in self.driver.page_source:
+        grade_summary_page = self.find_element(self.driver, SettingAssignmentPageLocator.GRADE_SUMMARY_SECTION)
+        self.wait.until(lambda d: grade_summary_page.is_displayed())
+      return "Grading summary" in self.driver.page_source or "Recalculating grades" in self.driver.page_source
     
 
     

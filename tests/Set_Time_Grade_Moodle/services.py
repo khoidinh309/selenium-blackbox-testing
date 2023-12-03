@@ -15,12 +15,12 @@ class TestService:
         
       return result
         
-  def write_test_results(file_path, test_results):
+  def write_test_results(file_path, test_results, column_list):
     with open(file_path, 'w', newline='') as file:
       writer = csv.writer(file)
-      writer.writerow(['Id', 'Test_Result'])
+      writer.writerow(column_list)
       for result in test_results:
-        writer.writerow([result['Id'], result['Passed']])
+        writer.writerow([result[key] for key in column_list])
   
   def create_date_object(date):
     [day, month, year] = date.split('/')
