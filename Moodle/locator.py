@@ -41,7 +41,7 @@ class SettingAssignmentPageLocator:
   REMIND_ME_YEAR_FIELD = (By.NAME,'gradingduedate[year]')
   
   SAVE_AND_DISPLAY_BUTTON = (By.ID, 'id_submitbutton')
-  INVALID_FEEDBACK_MESSAGE = (By.ID, 'id_error_duedate')
+  INVALID_FEEDBACK_MESSAGE = (By.ID, 'id_availabilitycontainer')
   GRADE_SUMMARY_SECTION = (By.CLASS_NAME, 'gradingsummarytable')
   
 class DateTypeConst:
