@@ -52,6 +52,9 @@ class AssignmentPage(BasePage):
     self.click_button(self.driver, AssignmentPageLocator.SETTINGS_BUTTON)
     
 class SettingAssignmentPage(BasePage):
+  maxmium_grade_field = MaximumGradeElement()
+  grade_pass_field = GradePassElement()
+  
   def activate_enable_checkbox(self, enable_locator):
     enable_checkbox = self.find_element(self.driver, enable_locator)
     self.wait.until(lambda _: enable_checkbox.is_displayed())
@@ -82,20 +85,25 @@ class SettingAssignmentPage(BasePage):
     self.activate_enable_checkbox(SettingAssignmentPageLocator.ENABLE_REMIND_ME_CHECKBOX)
     self.handle_input_date_field(remind_me_date, DateTypeConst.Remind_Me)
     
+    time.sleep(2)
+    
   def click_save_and_display_button(self):
     self.click_button(self.driver, SettingAssignmentPageLocator.SAVE_AND_DISPLAY_BUTTON)
     
-  def is_match_expected_result(self, expected_result):
+  def click_expand_grade_section_button(self):
+    self.click_button(self.driver, SettingAssignmentPageLocator.EXPAND_GRADE_SECTION_BUTTON)
+    
+  def is_match_expected_result(self, expected_result, set_type):
     if expected_result != "":
       result_array = expected_result.split(';')
-      error_section = self.find_element(self.driver, SettingAssignmentPageLocator.INVALID_FEEDBACK_MESSAGE)
+      error_section = self.find_element(self.driver, SettingAssignmentPageLocator.SET_TIME_SECTION if set_type == SetType.SET_TIME else SettingAssignmentPageLocator.SET_GRADE_SECTION)
       self.wait.until(lambda d: error_section.is_displayed())
       self.go_to_the_element(error_section)
       bool_array = [item in self.driver.page_source for item in result_array]
       return all(bool_array)
     else:
-      delete_button = self.find_element(self.driver, SettingAssignmentPageLocator.GRADE_SUMMARY_SECTION)
-      self.wait.until(lambda d: delete_button.is_displayed())
+      grade_summary_page = self.find_element(self.driver, SettingAssignmentPageLocator.GRADE_SUMMARY_SECTION)
+      self.wait.until(lambda d: grade_summary_page.is_displayed())
       return "Grading summary" in self.driver.page_source
     
 

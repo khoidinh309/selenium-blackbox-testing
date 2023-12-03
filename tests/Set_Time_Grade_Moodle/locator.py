@@ -41,13 +41,23 @@ class SettingAssignmentPageLocator:
   REMIND_ME_YEAR_FIELD = (By.NAME,'gradingduedate[year]')
   
   SAVE_AND_DISPLAY_BUTTON = (By.ID, 'id_submitbutton')
-  INVALID_FEEDBACK_MESSAGE = (By.ID, 'id_availabilitycontainer')
+  SET_TIME_SECTION = (By.ID, 'id_availabilitycontainer')
+  SET_GRADE_SECTION = (By.ID, 'id_modstandardgradecontainer')
   GRADE_SUMMARY_SECTION = (By.CLASS_NAME, 'gradingsummarytable')
+  
+  EXPAND_GRADE_SECTION_BUTTON = (By.ID, 'collapseElement-7')
+  
+  MAXIMUM_GRADE_FIELD = 'grade[modgrade_point]'
+  GRADE_PASS_FIELD = 'gradepass'
   
 class DateTypeConst:
   Allow_Submission = "ALLOW_SUBMISSION"
   Due = 'DUE'
   Cutoff = 'CUTOFF'
   Remind_Me = 'REMIND_ME'
+  
+class SetType:
+  SET_TIME = 'set_time'
+  SET_GRADE = 'set_grade'
   
   

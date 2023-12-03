@@ -24,3 +24,9 @@ class UserNameElement(BaseElement):
   
 class PasswordElement(BaseElement):
   locator = LogInPageLocator.PASSWORD_FIELD
+  
+class MaximumGradeElement(BaseElement):
+  locator = SettingAssignmentPageLocator.MAXIMUM_GRADE_FIELD
+  
+class GradePassElement(BaseElement):
+  locator = SettingAssignmentPageLocator.GRADE_PASS_FIELD

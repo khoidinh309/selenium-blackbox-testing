@@ -1,0 +1,7 @@
+Id,maximum_grade,grade_pass,expected_result
+1,10,0,
+2,10,11,The grade to pass can not be greater than the maximum possible grade 10
+3,-1,0,Invalid grade value. This must be an integer between 1 and 100
+4,101,0,Invalid grade value. This must be an integer between 1 and 100
+5,100,102,The grade to pass can not be greater than the maximum possible grade 100
+6,100,-1,
