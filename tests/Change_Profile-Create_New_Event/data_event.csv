@@ -1,0 +1,12 @@
+title,start_date,start_month,duration_date,duration_month,duration_min
+event1,,,,,60
+event2,,,,,0
+event3,8,5,22,5,
+event4,15,5,22,5,
+event5,21,5,22,5,
+event6,22,5,22,5,
+event7,23,5,22,5,
+event8,15,6,22,5,
+,10,5,,,
+,11,5,15,5,
+,,,,,120
