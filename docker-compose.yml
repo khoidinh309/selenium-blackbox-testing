@@ -1,0 +1,9 @@
+version: '3'
+services:
+  selenium-moodle:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: group_9/selenium-moode-chrome:1.0
+    volumes:
+      - ./:/app

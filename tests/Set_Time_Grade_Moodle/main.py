@@ -1,5 +1,7 @@
 import unittest
+import os
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from services import TestService as TService
 from page import *
 
@@ -8,10 +10,10 @@ class MoodleTest(unittest.TestCase):
   def setUp(self):
     self.driver = webdriver.Chrome()
     self.driver.get('https://school.moodledemo.net/')
-    self.set_time_test_case_file_path = 'D:\\Workspace\\selenium\\soft-ware-testing-ass3\\tests\\Set_Time_Grade_Moodle\\set_time_test_case.csv'
-    self.set_time_result_file_path = 'D:\\Workspace\\selenium\\soft-ware-testing-ass3\\tests\\Set_Time_Grade_Moodle\\set_time_test_result.csv'
-    self.set_grade_test_case_file_path = 'D:\\Workspace\\selenium\\soft-ware-testing-ass3\\tests\\Set_Time_Grade_Moodle\\set_grade_test_case.csv'
-    self.set_grade_result_file_path = 'D:\\Workspace\\selenium\\soft-ware-testing-ass3\\tests\\Set_Time_Grade_Moodle\\set_grade_test_result.csv'
+    self.set_time_test_case_file_path = os.path.abspath('./tests/Set_Time_Grade_Moodle/set_time_test_case.csv')
+    self.set_time_result_file_path = os.path.abspath('./tests/Set_Time_Grade_Moodle/set_time_test_result.csv')
+    self.set_grade_test_case_file_path = os.path.abspath('./tests/Set_Time_Grade_Moodle/set_grade_test_case.csv')
+    self.set_grade_result_file_path = os.path.abspath('./tests/Set_Time_Grade_Moodle/set_grade_test_result.csv')
     self.set_time_column_list = ['Id', 'allow_submission_date', 'due_date', 'cutoff_date', 'remind_me_date', 'expected_result']
     self.set_grade_column_list = ['Id', 'maximum_grade', 'grade_pass', 'expected_result', 'max_response_time']
     self.MAXIMUM_GRADE_COLUMN = 'maximum_grade'
@@ -47,7 +49,7 @@ class MoodleTest(unittest.TestCase):
     return date_object_array  
   
   
-  def atest_set_assignment_time(self):
+  def test_set_assignment_time(self):
     self.go_to_assignment_page()  
     
     test_cases = TService.read_csv_data(self.set_time_test_case_file_path, self.set_time_column_list)
@@ -70,7 +72,7 @@ class MoodleTest(unittest.TestCase):
     
     TService.write_test_results(self.set_time_result_file_path, test_results, ['Id', 'Passed'])
     
-  def test_set_assignment_grade(self):
+  def atest_set_assignment_grade(self):
     self.go_to_assignment_page()
     setting_assignment_page = SettingAssignmentPage(self.driver)
     test_cases = TService.read_csv_data(self.set_grade_test_case_file_path, self.set_grade_column_list)
