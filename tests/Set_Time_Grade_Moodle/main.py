@@ -8,6 +8,7 @@ from page import *
 """ Moodle testing setion """
 class MoodleTest(unittest.TestCase):
   def setUp(self):
+    print("\n\n----------Start set grade and set time assignment tests------------\n\n")
     self.driver = webdriver.Chrome()
     self.driver.get('https://school.moodledemo.net/')
     self.set_time_test_case_file_path = os.path.abspath('./tests/Set_Time_Grade_Moodle/set_time_test_case.csv')
@@ -50,6 +51,7 @@ class MoodleTest(unittest.TestCase):
   
   
   def test_set_assignment_time(self):
+    print("\n\n-------------Start set time tests-----------------\n\n")
     self.go_to_assignment_page()  
     
     test_cases = TService.read_csv_data(self.set_time_test_case_file_path, self.set_time_column_list)
@@ -68,11 +70,15 @@ class MoodleTest(unittest.TestCase):
           AssignmentPage(self.driver).click_setting_button()
         
         test_results.append({"Id": data['Id'], 'Passed': ('Passed' if test_result == True else 'Failed')})
+        print("Test " + data["Id"] + " " + ('Passed' if test_result == True else 'Failed'))
         time.sleep(2)
     
     TService.write_test_results(self.set_time_result_file_path, test_results, ['Id', 'Passed'])
+    print("\n\n-------------End set time tests-----------------\n\n")
+
     
-  def atest_set_assignment_grade(self):
+  def test_set_assignment_grade(self):
+    print("\n\n-------------Start set grade tests-----------------\n\n")
     self.go_to_assignment_page()
     setting_assignment_page = SettingAssignmentPage(self.driver)
     test_cases = TService.read_csv_data(self.set_grade_test_case_file_path, self.set_grade_column_list)
@@ -93,11 +99,14 @@ class MoodleTest(unittest.TestCase):
           
         response_time_test = total_reponse_time < float(data['max_response_time'])*1000
         test_results.append({"Id": data['Id'], 'UI_Passed': ('Passed' if test_result == True else 'Failed'), "RT_Passed": ('Passed' if response_time_test else 'Failed')})
+        print("Test " + data["Id"] + " " + ('Passed' if test_result == True else 'Failed'))
         time.sleep(3)
         
     TService.write_test_results(self.set_grade_result_file_path, test_results, ['Id', 'UI_Passed', 'RT_Passed'])
+    print("\n\n-------------End set grade tests-----------------\n\n")
   
   def tearDown(self) -> None:
+    print("\n----------End tests------------\n")
     return self.driver.close()
    
 if __name__ == "__main__":
